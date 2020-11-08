@@ -9,6 +9,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
@@ -71,6 +73,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             map.addMarker(MarkerOptions().position(it)
                 .title("Dropped Pin")
                 .snippet(snippet))
+                .setIcon(BitmapDescriptorFactory.defaultMarker
+                    (BitmapDescriptorFactory.HUE_YELLOW))
         }
     }
     private fun setPoiListener(map: GoogleMap) {
