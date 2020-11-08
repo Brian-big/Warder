@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -29,8 +30,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         val nairobi = LatLng(-1.308028, 36.823632)
+        val zoom = 10.0F
         mMap.addMarker(MarkerOptions().position(nairobi).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(nairobi))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nairobi, zoom))
+        setMapLongClick(mMap)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -58,5 +61,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    private fun setMapLongClick(map: GoogleMap){
+        map.setOnMapLongClickListener() {
+            val snippet = String().format(Locale.getDefault(),
+                "Lat: %1$.5f, Long: %2$.5f",
+                it.latitude, it.longitude)
+            map.addMarker(MarkerOptions().position(it)
+                .title("Dropped Pin")
+                .snippet(snippet))
+        }
     }
 }
