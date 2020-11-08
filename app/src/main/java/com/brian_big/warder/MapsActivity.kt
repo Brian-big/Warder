@@ -2,6 +2,8 @@ package com.brian_big.warder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -29,5 +31,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val nairobi = LatLng(-1.308028, 36.823632)
         mMap.addMarker(MarkerOptions().position(nairobi).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(nairobi))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.normal_map -> {
+                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL;
+                return true
+            }
+            R.id.hybrid_map ->{
+                mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+                return true
+            }
+            R.id.satellite_map ->{
+                mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                return true
+            }
+            R.id.terrain_map ->{
+                mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
