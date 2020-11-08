@@ -34,6 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(nairobi).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nairobi, zoom))
         setMapLongClick(mMap)
+        setPoiListener(mMap)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,5 +72,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .title("Dropped Pin")
                 .snippet(snippet))
         }
+    }
+    private fun setPoiListener(map: GoogleMap) {
+        map.setOnPoiClickListener(){
+            val poiMarker = map.addMarker(
+                MarkerOptions()
+                    .position(it.latLng)
+                    .title(it.name)
+            )
+            poiMarker.showInfoWindow()
+        }
+
     }
 }
